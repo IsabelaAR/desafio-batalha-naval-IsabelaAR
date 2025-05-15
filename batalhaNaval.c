@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#define SOMA 0
+
 int main() {
     // Nível Novato - Posicionamento dos Navios
     // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
@@ -11,6 +13,8 @@ int main() {
     int tabuleiro[10][10] = {0};
     int horizontal[3] = {3, 3, 3};
     int vertical[3] = {3, 3, 3};
+    int diagonal1[3] = {3, 3, 3};
+    int diagonal2[3] = {3, 3, 3};
 
     //Navio horizontal em [8][3-5]
     for (int j = 3; j < 6; j++){
@@ -20,6 +24,16 @@ int main() {
     //Navio vertical em [0-2][9]
     for (int i = 0; i < 3; i++){
         tabuleiro[i][9] = vertical[i];
+    }
+
+    //Navio diagonal crescente [7-5][1-3]
+    for (int i = 0; i < 3; i++){
+        tabuleiro[7 - i][i + 1] = diagonal1[i];
+    }
+
+    //Navio diagonal decrescente [3-5][6-8]
+    for (int i = 0; i < 3; i++){
+        tabuleiro[3 + i][i + 6] = diagonal2[i];
     }
 
     //Imprimindo meu array linha
@@ -39,11 +53,6 @@ int main() {
     }
 
     printf ("\n\n");
-
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
 
     // Nível Mestre - Habilidades Especiais com Matrizes
     // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
