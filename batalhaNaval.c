@@ -1,20 +1,60 @@
 #include <stdio.h>
 
 #define SOMA 0
+#define TAM 10
+#define TAM_NAV 3
 
 int main() {
-    // Nível Novato - Posicionamento dos Navios
-    // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
-    // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
-    // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
 
-    int coluna[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-    char linha[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
-    int tabuleiro[10][10] = {0};
-    int horizontal[3] = {3, 3, 3};
-    int vertical[3] = {3, 3, 3};
-    int diagonal1[3] = {3, 3, 3};
-    int diagonal2[3] = {3, 3, 3};
+    int coluna[TAM] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    char linha[TAM] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+    int tabuleiro[TAM][TAM] = {0};
+    int horizontal[TAM_NAV] = {3, 3, 3};
+    int vertical[TAM_NAV] = {3, 3, 3};
+    int diagonal1[TAM_NAV] = {3, 3, 3};
+    int diagonal2[TAM_NAV] = {3, 3, 3};
+    int cone[3][5] = {
+        {0, 0, 4, 0, 0},
+        {0, 4, 4, 4, 0},
+        {4, 4, 4, 4, 4}
+    };
+    int cruz[5][5] = {
+        {0, 0, 5, 0, 0},
+        {0, 0, 5, 0, 0},
+        {5, 5, 5, 5, 5},
+        {0, 0, 5, 0, 0},
+        {0, 0, 5, 0, 0}
+    };
+
+    int octaedro[5][5] = {
+        {0, 0, 7, 0, 0},
+        {0, 7, 7, 7, 0},
+        {7, 7, 7, 7, 7},
+        {0, 7, 7, 7, 0},
+        {0, 0, 7, 0, 0}
+    };
+
+    //Octaedro
+    for (int i = 0; i < 5; i++){
+        for (int j = 0; j < 5; j++){
+            tabuleiro[i][j] = octaedro[i][j];
+        }
+    }
+
+
+     //Cruz
+    for (int i = 0; i < 5; i++){
+        for (int j = 0; j < 5; j++){
+            tabuleiro[i][5 + j] = cruz[i][j];
+        }
+    }
+
+    //Cone
+    for (int i = 0; i < 3; i++){
+        for (int j = 0; j < 5; j++){
+            tabuleiro[7 + i][5 + j] = cone[i][j];
+        }
+    }
 
     //Navio horizontal em [8][3-5]
     for (int j = 3; j < 6; j++){
@@ -22,29 +62,29 @@ int main() {
     }
 
     //Navio vertical em [0-2][9]
-    for (int i = 0; i < 3; i++){
+    for (int i = 0; i < TAM_NAV; i++){
         tabuleiro[i][9] = vertical[i];
     }
 
     //Navio diagonal crescente [7-5][1-3]
-    for (int i = 0; i < 3; i++){
+    for (int i = 0; i < TAM_NAV; i++){
         tabuleiro[7 - i][i + 1] = diagonal1[i];
     }
 
     //Navio diagonal decrescente [3-5][6-8]
-    for (int i = 0; i < 3; i++){
-        tabuleiro[3 + i][i + 6] = diagonal2[i];
+    for (int i = 0; i < TAM_NAV; i++){
+        tabuleiro[5 + i][i + 7] = diagonal2[i];
     }
 
     //Imprimindo meu array linha
     printf ("    "); //Para ficar alinhado com a matriz
-    for (int i = 0; i < 10; i++){
+    for (int i = 0; i < TAM; i++){
         printf ("%c  ", linha[i]);
     }
     printf ("\n");
 
     //Imprimindo minha matriz
-    for (int i = 0; i < 10; i++){
+    for (int i = 0; i < TAM; i++){
         printf ("\n");
         printf ("%d   ", coluna[i]); //Imprimindo meu array coluna
         for (int j = 0; j < 10; j++){
@@ -53,27 +93,6 @@ int main() {
     }
 
     printf ("\n\n");
-
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
-
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
-    
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
-
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
 
     return 0;
 }
